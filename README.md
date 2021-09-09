@@ -1,14 +1,14 @@
 # WeatherDashApp
 
-Due date: 09/08/2021
+-Due date: 09/08/2021
 
-## 06 Server-Side APIs: Weather Dashboard:
+## Weather Dashboard Application:
 
-WeatherDashApp is an application used to check current weather updates and five-day forecasts, offering details on humidity, temperature, cloud conditions and much more.
+-WeatherDashApp is an application used to check current weather updates and five-day forecasts, offering details on humidity, temperature, cloud conditions and much more.
 
 ### Link to deployed site; screenshot of up-to-date site included.
 
-[WeatherDashApp](https://fons3517.github.io/WeatherDashApp/)
+*[WeatherDashApp](https://fons3517.github.io/WeatherDashApp/)*
 
 ![Weather Dashboard Application](./WeatherDashApp.JPG)
 

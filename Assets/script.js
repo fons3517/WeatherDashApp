@@ -12,7 +12,6 @@ $('#search-city').on('click', function(event) {
     fiveDayForecast(cityName)
     localStorage.setItem("cityName", cityName);
     document.getElementById('#enter-city').innerHTML = localStorage.getItem("cityName")
-
 });
 
 function currentWeatherForecast(cityName) {
@@ -65,7 +64,7 @@ function fiveDayForecast(cityName) {
 
 function uvIndex(lat, lon) {
     $.ajax({
-        url: `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily${APIkey}&units=imperial`,
+        url: `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily${APIkey}`,
         method: "GET"
 
     }).then(uvIndexCallBack)
