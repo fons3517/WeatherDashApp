@@ -10,8 +10,8 @@ $('#search-city').on('click', function(event) {
     console.log(cityName);
     currentWeatherForecast(cityName)
     fiveDayForecast(cityName)
-    localStorage.setItem("cityName", cityName);
-    document.getElementById('#enter-city').innerHTML = localStorage.getItem("cityName")
+    // localStorage.setItem("cityName", cityName);
+    // localStorage.getItem(cityName);
 });
 
 function currentWeatherForecast(cityName) {
@@ -21,6 +21,9 @@ function currentWeatherForecast(cityName) {
 
     }).then(function(APIresponse){
         console.log(APIresponse)
+        var previousCity = JSON.parse(localStorage.getItem("citySearch")) || []
+        previousCity.push(cityName)
+        localStorage.setItem("citySearch", JSON.stringify(previousCity))
         const lat = APIresponse.coord.lat
         const lon = APIresponse.coord.lon
         uvIndex(lat, lon)
