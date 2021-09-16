@@ -77,17 +77,31 @@ function uvIndex(lat, lon) {
 
 function uvIndexCallBack(APIresponse){
     console.log(APIresponse)
+    var val= APIresponse.current.uvi;
     $(".uvIndex").text(`UV Index: ${APIresponse.current.uvi}`)
+    if(val >= 11) (
+        $('.uvIndex').addClass("extreme")
+    )
 }
 
 function displayLocalStorage(){
     var previousCity = JSON.parse(localStorage.getItem("citySearch")) || []
-    var cityList = "";
+    var cityList = "<h4>Previous search</h4>";
     for(var i = 0; i < previousCity.length; i++) {
         cityList += `
         <button class= "cityButton btn btn-warning m-2 p-2">${previousCity[i]}</button>
-        `
+        `   
     }
     $("#city-list").html(cityList)
 }
 displayLocalStorage();
+
+
+$("#city-list").on("click",".cityButton",function(event){
+    event.preventDefault()
+    var current = $(this).text()
+    console.log(current)
+    fiveDayForecast(current);
+    currentWeatherForecast(current);
+})
+
