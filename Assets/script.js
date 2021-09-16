@@ -10,6 +10,7 @@ $('#search-city').on('click', function(event) {
     console.log(cityName);
     currentWeatherForecast(cityName)
     fiveDayForecast(cityName)
+    $('#enter-city').val('');
     // localStorage.setItem("cityName", cityName);
     // localStorage.getItem(cityName);
 });
@@ -24,6 +25,7 @@ function currentWeatherForecast(cityName) {
         var previousCity = JSON.parse(localStorage.getItem("citySearch")) || []
         previousCity.push(cityName)
         localStorage.setItem("citySearch", JSON.stringify(previousCity))
+        displayLocalStorage();
         const lat = APIresponse.coord.lat
         const lon = APIresponse.coord.lon
         uvIndex(lat, lon)
@@ -51,7 +53,7 @@ function fiveDayForecast(cityName) {
         var codeHTML = "";
         for(let i = 0; i < APIresponse.list.length; i = i + 8){
             codeHTML += `
-            <div class='container bg-info'>
+            <div class='container bg-info m-2 p-2' style="width:30%;">
             <h3>City: ${cityName}</h3>
            <h6>Temp: ${APIresponse.list[i].main.temp}</h6>
             <h4>Description: ${APIresponse.list[i].weather[0].description}
@@ -77,3 +79,15 @@ function uvIndexCallBack(APIresponse){
     console.log(APIresponse)
     $(".uvIndex").text(`UV Index: ${APIresponse.current.uvi}`)
 }
+
+function displayLocalStorage(){
+    var previousCity = JSON.parse(localStorage.getItem("citySearch")) || []
+    var cityList = "";
+    for(var i = 0; i < previousCity.length; i++) {
+        cityList += `
+        <button class= "cityButton btn btn-warning m-2 p-2">${previousCity[i]}</button>
+        `
+    }
+    $("#city-list").html(cityList)
+}
+displayLocalStorage();
