@@ -9,6 +9,7 @@
 ### Link to deployed site; screenshot of up-to-date site included.
 
 *[WeatherDashApp](https://fons3517.github.io/WeatherDashApp/)*
+![WeatherDashApp screenshot](./WeatherDashApp.JPG)
+![WeatherDashApp 2nd screenshot](/WeatherDashApp2.JPG)
 
-![Weather Dashboard Application](./WeatherDashApp.JPG)
 

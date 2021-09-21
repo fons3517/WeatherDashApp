@@ -6,24 +6,24 @@ var queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?q=";
 
 $('#search-city').on('click', function(event) {
     event.preventDefault();
-    var cityName = $('#enter-city').val();
-    console.log(cityName);
-    currentWeatherForecast(cityName)
-    fiveDayForecast(cityName)
+    var enterCityEl = $('#enter-city').val();
+    console.log(enterCityEl);
+    currentWeatherForecast(enterCityEl)
+    fiveDayForecast(enterCityEl)
     $('#enter-city').val('');
-    // localStorage.setItem("cityName", cityName);
-    // localStorage.getItem(cityName);
+    // localStorage.setItem("enterCityEl", enterCityEl);
+    // localStorage.getItem(enterCityEl);
 });
 
-function currentWeatherForecast(cityName) {
+function currentWeatherForecast(enterCityEl) {
     $.ajax({
-        url: queryURL2 + cityName + APIkey, 
+        url: queryURL2 + enterCityEl + APIkey, 
         method: "GET"
 
     }).then(function(APIresponse){
         console.log(APIresponse)
         var previousCity = JSON.parse(localStorage.getItem("citySearch")) || []
-        previousCity.push(cityName)
+        previousCity.push(enterCityEl)
         localStorage.setItem("citySearch", JSON.stringify(previousCity))
         displayLocalStorage();
         const lat = APIresponse.coord.lat
@@ -31,7 +31,7 @@ function currentWeatherForecast(cityName) {
         uvIndex(lat, lon)
         $("#current-weather").html(`
         <div class='container bg-info'>
-           <h3>City: ${cityName}</h3>
+           <h3>City: ${enterCityEl}</h3>
           <h6>Temp: ${APIresponse.main.temp}</h6>
            <h4>Description: ${APIresponse.weather[0].description}
            <img src='https://openweathermap.org/img/wn/${APIresponse.weather[0].icon}@2x.png'></h4>
@@ -43,9 +43,9 @@ function currentWeatherForecast(cityName) {
     })
 }
 
-function fiveDayForecast(cityName) {
+function fiveDayForecast(enterCityEl) {
     $.ajax({
-        url: queryURL3 + cityName + APIkey, 
+        url: queryURL3 + enterCityEl + APIkey, 
         method: "GET"
 
     }).then(function(APIresponse){
@@ -54,7 +54,7 @@ function fiveDayForecast(cityName) {
         for(let i = 0; i < APIresponse.list.length; i = i + 8){
             codeHTML += `
             <div class='container bg-info m-2 p-2' style="width:30%;">
-            <h3>City: ${cityName}</h3>
+            <h3>City: ${enterCityEl}</h3>
            <h6>Temp: ${APIresponse.list[i].main.temp}</h6>
             <h4>Description: ${APIresponse.list[i].weather[0].description}
             <img src='https://openweathermap.org/img/wn/${APIresponse.list[i].weather[0].icon}@2x.png' /></h4>
@@ -79,10 +79,17 @@ function uvIndexCallBack(APIresponse){
     console.log(APIresponse)
     var val= APIresponse.current.uvi;
     $(".uvIndex").text(`UV Index: ${APIresponse.current.uvi}`)
-    if(val >= 11) (
-        $('.uvIndex').addClass("extreme")
-    )
+    if(val >= 11){
+        $('.uvIndex').addClass("Extreme")
+    } else if(val >= 8){
+        $('.uvIndex').addClass("Very High")
+    } else if(val >= 6){
+        $('.uvIndex').addClass("High")
+    } else if(val >= 3){
+        $('.uvIndex').addClass("Moderate")
+    }else($('.uvIndex').addClass("Low"));
 }
+uvIndexCallBack()
 
 function displayLocalStorage(){
     var previousCity = JSON.parse(localStorage.getItem("citySearch")) || []
